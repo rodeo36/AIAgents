@@ -1,6 +1,51 @@
-"items": {
-  "type": "array",
-  "minItems": 3,
-  "maxItems": 5,
-  "items": { ... }
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "topic",
+          "script",
+          "lang",
+          "img_prompt",
+          "image_url",
+          "voice_url",
+          "title",
+          "description",
+          "tags",
+          "status"
+        ],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1 },
+          "topic": { "type": "string", "maxLength": 60 },
+          "script": { "type": "string", "maxLength": 220 },
+          "lang": { "type": "string", "enum": ["en", "nl", "ar", "fr", "de"] },
+          "img_prompt": { "type": "string", "maxLength": 240 },
+          "image_url": { "type": "string", "default": "" },
+          "voice_url": { "type": "string", "default": "" },
+          "title": { "type": "string", "maxLength": 60 },
+          "description": { "type": "string", "maxLength": 300 },
+          "tags": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 6,
+            "items": { "type": "string", "maxLength": 25 }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["new", "scripted", "imaged", "voiced", "rendered", "uploaded"],
+            "default": "new"
+          }
+        }
+      }
+    }
+  }
 }
